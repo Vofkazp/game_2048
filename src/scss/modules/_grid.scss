@@ -1,0 +1,43 @@
+$boxSize: 100px;
+$borderWidth: 2px;
+$boxColor: #d3d3d3;
+$boxBorderColor: #838383;
+$boxContentColor: #fbe760;
+$boxContentBorderColor: #af5801;
+$textColor: #454545;
+
+.container {
+  padding-top: 50px;
+  margin: auto;
+  width: #{$boxSize * 4 + $borderWidth * 2};
+  height: #{$boxSize * 4 + $borderWidth * 2};
+
+  .container-box {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border: $borderWidth solid $boxBorderColor;
+  }
+
+  .box {
+    width: $boxSize;
+    height: $boxSize;
+    border: $borderWidth solid $boxBorderColor;
+    background: $boxColor;
+  }
+
+  .content-box {
+    position: absolute;
+    width: $boxSize;
+    height: $boxSize;
+    border: $borderWidth solid $boxContentBorderColor;
+    background: $boxContentColor;
+    text-align: center;
+    line-height: #{$boxSize - $borderWidth * 2};
+    font-size: calc(#{$boxSize} / 4);
+    color: $textColor;
+    font-weight: 700;
+    transition: all .2s ease-in-out;
+  }
+}

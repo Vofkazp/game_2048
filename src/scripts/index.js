@@ -1,4 +1,11 @@
-import {ANSWER} from "./modules/module";
 import '../scss/style.scss';
+import createBox from "./modules/createBox";
+import listener from "./modules/listener";
 
-console.log('Universe answer: ', ANSWER);
+function startGame() {
+  listener();
+  createBox();
+  createBox();
+}
+
+startGame();
