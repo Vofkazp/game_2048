@@ -6,6 +6,7 @@ import getMatrix, {
 import generateRandom from "./generateRandom";
 import findBoxVerticalPosition from "./findBoxVerticalPosition";
 import findBoxHorizontalPosition from "./findBoxHorizontalPosition";
+import colorSchema from "./colors";
 
 function getRandomBoxPosition() {
   const emptyCoordinates = getEmptyCoordinates();
@@ -40,6 +41,7 @@ class Box {
   }
 
   setBoxValue() {
+    this.box.style.backgroundColor = this.value >= 2048 ? colorSchema[2048] : colorSchema[this.value];
     this.box.innerHTML = this.value.toString();
   }
 
@@ -56,9 +58,13 @@ class Box {
     }, 200);
   }
 
+  killNow() {
+    this.box.remove();
+  }
+
   move(direction) {
     const matrix = getMatrix();
-    const {x, y} = this.position;
+    const {x, y} = this.getBoxPosition();
     switch (direction) {
       case 'left':
         findBoxHorizontalPosition({
@@ -118,9 +124,8 @@ class Box {
 
   setBoxToScreen() {
     const app = document.getElementById('app');
-    this.box.style.left = this.position.x * 25 + '%';
-    this.box.style.top = this.position.y * 25 + '%';
-    this.box.innerHTML = this.value.toString();
+    this.changeBoxPosition();
+    this.setBoxValue();
     addBoxToMatrix(this);
     app.appendChild(this.box);
   }

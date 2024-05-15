@@ -7,21 +7,20 @@ export default function findBoxVerticalPosition({
                                                   endCondition,
                                                   box
                                                 }) {
-  if(startCondition(y)) { return;}
-  const matrixColumn = matrix.map((matrixLine) => {
-    return matrixLine[x];
-  })
+  if (startCondition(y)) return;
+  const matrixColumn = matrix.map(matrixLine => matrixLine[x]);
   let currentY = y;
   let foundY = y;
   do {
     currentY = changeMethod(currentY);
     const anotherBox = matrixColumn[currentY];
     if (anotherBox) {
-      if(anotherBox.getValue() === box.getValue()) {
+      if (anotherBox.getValue() === box.getValue()) {
         foundY = currentY;
         box.mergeBoxValue();
         anotherBox.kill();
       }
+      break;
     } else {
       foundY = currentY;
     }

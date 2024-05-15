@@ -20,6 +20,7 @@ export default function findBoxHorizontalPosition({
         box.mergeBoxValue();
         anotherBox.kill();
       }
+      break;
     } else {
       foundX = currentX;
     }

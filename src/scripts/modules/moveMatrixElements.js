@@ -1,51 +1,64 @@
-import getMatrix from "./matrix";
+import getMatrix, {resetMatrix} from "./matrix";
 import createBox from "./createBox";
+import cloneDeep from "lodash/cloneDeep";
+import isEqual from "lodash/isEqual";
+import gameOver from "./gameOver";
 
 export default function moveMatrixElements(moveDirection) {
   const matrix = getMatrix();
-  switch (moveDirection) {
-    case "left":
+  const oldMatrix = cloneDeep(matrix);
+  if (moveDirection === "left") {
+    for (let index = 1; index < matrix.length; index++) {
       matrix.forEach(matrixLine => {
-        matrixLine.forEach(box => {
-          if (box) {
-            box.move(moveDirection);
-          }
-        })
-      });
-      break;
-    case "up":
-      matrix.forEach(matrixLine => {
-        matrixLine.forEach(box => {
-          if (box) {
-            box.move(moveDirection);
-          }
-        })
-      });
-      break;
-    case "right":
-      matrix.forEach(matrixLine => {
-        for (let i = matrixLine.length - 1; i >= 0; i--) {
-          const box = matrixLine[i];
-          if (box) {
-            box.move(moveDirection);
-          }
+        const box = matrixLine[index];
+        if (box) {
+          box.move(moveDirection);
         }
       });
-      break;
-    case "down":
-      for (let i = matrix.length - 1; i >= 0; i--) {
-        const matrixLine = matrix[i];
-        matrixLine.forEach(box => {
-          if (box) {
-            box.move(moveDirection);
-          }
-        })
-      }
-      break;
-    default:
-      break;
+    }
+  } else if (moveDirection === "right") {
+    for (let index = matrix.length - 2; index > -1; index--) {
+      matrix.forEach(matrixLine => {
+        const box = matrixLine[index];
+        if (box) {
+          box.move(moveDirection);
+        }
+      });
+    }
+  } else if (moveDirection === "up") {
+    matrix.forEach(matrixLine => {
+      matrixLine.forEach(box => {
+        if (box) {
+          box.move(moveDirection);
+        }
+      })
+    })
+  } else if (moveDirection === "down") {
+    for (let index = matrix.length - 2; index > -1; index--) {
+      matrix[index].forEach(box => {
+        if (box) {
+          box.move(moveDirection);
+        }
+      });
+    }
   }
-  setTimeout(() => {
-    createBox()
-  }, 200);
+  const isSameMatrix = isEqual(oldMatrix, matrix);
+  if (!isSameMatrix) {
+    createBox();
+    if (gameOver(matrix)) {
+      const errorDiv = document.createElement("div");
+      errorDiv.innerHTML = "<p>GAME OVER</p><button onclick='resetGame()' class='reset'>Начать с начала</button>";
+      errorDiv.classList.add("game-over");
+      document.getElementById("app").appendChild(errorDiv);
+    }
+  }
 }
+
+function resetGame() {
+  resetMatrix();
+  createBox();
+  createBox();
+  document.querySelector('.game-over').remove();
+}
+
+window.resetGame = resetGame;

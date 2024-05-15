@@ -8,6 +8,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
   background: #a6a6a6;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 a {

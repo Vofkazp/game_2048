@@ -11,6 +11,17 @@ export function getEmptyCoordinates() {
   }, []);
 }
 
+export function resetMatrix() {
+  matrix.forEach((matrixLine, matrixY) => {
+    matrixLine.forEach((matrixElem, matrixX) => {
+      if (matrixElem) {
+        matrixElem.killNow();
+        matrix[matrixY][matrixX] = 0;
+      }
+    });
+  });
+}
+
 export function addBoxToMatrix(box) {
   const {x, y} = box.getBoxPosition();
   matrix[y][x] = box;

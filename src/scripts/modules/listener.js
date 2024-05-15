@@ -1,4 +1,6 @@
 import moveMatrixElements from "./moveMatrixElements";
+import $ from 'jquery';
+import 'jquery-touchswipe';
 
 const listeners = {
   37: "left",
@@ -10,5 +12,10 @@ const listeners = {
 export default function listener() {
   document.addEventListener("keydown", (event) => {
     moveMatrixElements(listeners[event.keyCode]);
-  })
+  });
+  $("#app").swipe({
+    swipe: function (event, direction) {
+      moveMatrixElements(direction);
+    }
+  });
 }
