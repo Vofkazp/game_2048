@@ -83,8 +83,8 @@ class Box {
           x,
           y,
           box: this,
-          startCondition: (x) => x === 3,
-          endCondition: (currentX) => currentX < 3,
+          startCondition: (x) => x === matrix.length - 1,
+          endCondition: (currentX) => currentX < matrix.length - 1,
           changeMethod: (currentX) => currentX + 1
         });
         break;
@@ -105,8 +105,8 @@ class Box {
           x,
           y,
           box: this,
-          startCondition: (y) => y === 3,
-          endCondition: (currentY) => currentY < 3,
+          startCondition: (y) => y === matrix.length - 1,
+          endCondition: (currentY) => currentY < matrix.length - 1,
           changeMethod: (currentY) => currentY + 1
         });
         break;
@@ -118,8 +118,9 @@ class Box {
   }
 
   changeBoxPosition() {
-    this.box.style.left = this.position.x * 25 + '%';
-    this.box.style.top = this.position.y * 25 + '%';
+    const matrix = getMatrix();
+    this.box.style.left = this.position.x * (100 / matrix.length) + '%';
+    this.box.style.top = this.position.y * (100 / matrix.length) + '%';
   }
 
   setBoxToScreen() {

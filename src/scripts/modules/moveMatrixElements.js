@@ -3,6 +3,8 @@ import createBox from "./createBox";
 import cloneDeep from "lodash/cloneDeep";
 import isEqual from "lodash/isEqual";
 import gameOver from "./gameOver";
+import saveStatistic from "./statistic";
+let countSteep = 0;
 
 export default function moveMatrixElements(moveDirection) {
   const matrix = getMatrix();
@@ -44,6 +46,8 @@ export default function moveMatrixElements(moveDirection) {
   }
   const isSameMatrix = isEqual(oldMatrix, matrix);
   if (!isSameMatrix) {
+    countSteep++;
+    saveStatistic(countSteep);
     createBox();
     if (gameOver(matrix)) {
       const errorDiv = document.createElement("div");

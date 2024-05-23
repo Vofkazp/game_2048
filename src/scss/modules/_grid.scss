@@ -1,77 +1,29 @@
-$boxSize: 100px;
-$borderWidth: 2px;
-$boxColor: #d3d3d3;
-$boxBorderColor: #838383;
-$boxContentColor: #fbe760;
-$boxContentBorderColor: #af5801;
-$textColor: #454545;
-$gameOver: #fd3939;
-$gameOverTextColor: #b3b3b3;
+.grid {
+  overflow: hidden;
 
-.container {
-  padding-top: 50px;
-  margin: auto;
-  width: #{$boxSize * 4 + $borderWidth * 2};
-  height: #{$boxSize * 4 + $borderWidth * 2};
-
-  .container-box {
-    width: 100%;
-    position: relative;
+  .row {
     display: flex;
-    flex-wrap: wrap;
-    border: $borderWidth solid $boxBorderColor;
-  }
+    transform: translateX(calc((var(--left) - 1) * (-100vw)));
+    transition: all .3s ease-in-out;
+    height: 100%;
 
-  .box {
-    width: $boxSize;
-    height: $boxSize;
-    border: $borderWidth solid $boxBorderColor;
-    background: $boxColor;
+    section {
+      min-width: 100vw;
+    }
   }
+}
 
-  .game-over {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: $boxSize * 4;
-    height: $boxSize * 4;
-    background: $gameOver;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    line-height: 100%;
-    font-size: calc($boxSize / 2);
-    color: $gameOverTextColor;
-    font-weight: 700;
-    z-index: 999;
+
+//Mobile
+@media (max-width: 600px) {
+  .grid {
+    height: calc(100vh - 80px);
   }
+}
 
-  .content-box {
-    position: absolute;
-    width: $boxSize;
-    height: $boxSize;
-    border: $borderWidth solid $boxContentBorderColor;
-    background: $boxContentColor;
-    text-align: center;
-    line-height: #{$boxSize - $borderWidth * 2};
-    font-size: calc(#{$boxSize} / 4);
-    color: $textColor;
-    font-weight: 700;
-    transition: all .2s ease-in-out;
-  }
-
-  .reset {
-    margin-top: 20px;
-    display: block;
-    outline: none;
-    border: 2px solid $boxContentBorderColor;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 14px;
-    background:$boxContentColor;
-    cursor: pointer;
+//Desktop
+@media (min-width: 601px) {
+  .grid {
+    height: calc(100vh - 50px);
   }
 }

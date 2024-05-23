@@ -1,4 +1,8 @@
-const matrix = Array.from({length: 4}, () => Array.from({length: 4}, () => 0));
+import {property} from "./property";
+
+let options = JSON.parse(localStorage.getItem("options"));
+const count = options ? options.count : property.count;
+let matrix = Array.from({length: count}, () => Array.from({length: count}, () => 0));
 
 export function getEmptyCoordinates() {
   return matrix.reduce((emptyCoordinates, matrixLine, y) => {
@@ -20,6 +24,9 @@ export function resetMatrix() {
       }
     });
   });
+  let options = JSON.parse(localStorage.getItem("options"));
+  const count = options ? options.count : property.count;
+  matrix = Array.from({length: count}, () => Array.from({length: count}, () => 0));
 }
 
 export function addBoxToMatrix(box) {
@@ -49,4 +56,16 @@ export function changeMatrixBoxPosition(box) {
 
 export default function getMatrix() {
   return matrix;
+}
+
+export function findMaxInMatrix() {
+  let maxValue = -Infinity;
+  for (let row of matrix) {
+    for (let element of row) {
+      if (element && element.value > maxValue) {
+        maxValue = element.value;
+      }
+    }
+  }
+  return maxValue;
 }
