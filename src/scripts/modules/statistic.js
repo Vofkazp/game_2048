@@ -38,7 +38,7 @@ export default function saveStatistic(countSteep) {
 export function renderStatistic() {
   const statistic = JSON.parse(localStorage.getItem('statistic'));
   const block = document.getElementById('statistic');
-  statistic.forEach(element => {
+  statistic?.forEach(element => {
     const div = document.createElement('div');
     div.classList.add('statistic-item');
     div.innerHTML = `<div class="id"><div class="st-title">Дата</div><div class="st-value">${element.id}</div></div><div class="matr">
